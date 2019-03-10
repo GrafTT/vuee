@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+      crossorigin="anonymous"
+    />
+
+    <!-- Optional theme -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+      integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+      crossorigin="anonymous"
+    />
+    <style>
+      /* .th_rel{
+        position: relative;
+      } */
+      .modal_span {
+        max-width: 100px;
+
+      }
+
+      .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
+        border-bottom-width: 1px!important;
+      }
+
+      .table>tbody+tbody {
+        border-top: 1px solid #ddd;
+      }
+    </style>
+
+    <!-- Latest compiled and minified JavaScript -->
+  </head>
+  <body>
+    <!-- <div id="home">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th v-for="col in filters"><span class="modal_span" v-if="col.open"><input  v-model="col.val" type="text"><button @click="col.val=''">reset</button><button @click="col.open = false">X</button></span><span v-else @click="openFilter(col.name)" class="th_rel">{{col.name}}</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in filtered">
+            <td >{{item.name}}</td>
+            <td >{{item.age}}</td>
+            <td >{{item.book}}</td>
+            <td>{{item.date}}</td>
+
+          </tr>
+
+        </tbody>
+      </table>
+      <input type="text" v-model="search">
+      <button @click="onSubmit()">submit</button>
+    </div> -->
+    <div id="test" style="width: 1000px; margin: 20px;">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Client</th>
+            <th>Name</th>
+            <th>Time</th>
+            <th>Price</th>
+            <th>Symbol</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody v-for="item in items"  style="border-collapse:collapse;">
+            <tr>
+                <td v-for="col in item.main">{{col}}</td>
+                <td><button @click="item.show = !item.show">Details</button></td>
+            </tr>
+            <tr v-if="item.show" rowspan="2">
+              <th>1</th>
+              <th>1</th>
+              <th>1</th>
+              <th>1</th>
+              <th>1</th>
+              <th>1</th>
+              <th>1</th>
+            </tr>
+            <tr v-if="item.show" rowspan="2">
+              <td v-for="col2 in item.details">{{col2}}</td>
+              </tr>
+        </tbody>
+      </table>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+      integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.22/dist/vue.js"></script>
+    <!-- <script src="./main.js"></script> -->
+    <script src="./index.js"></script>
+  </body>
+</html>
+!

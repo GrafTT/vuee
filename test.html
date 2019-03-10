@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous" />
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+    crossorigin="anonymous" />
+  <style>
+    #test td {
+      vertical-align: middle !important;
+      text-align: center;
+    }
+  </style>
+
+</head>
+
+<body style="width: 800px;">
+  <div style="margin: 30px;" id="test">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Status Session</th>
+          <th>Util</th>
+          <th>Last</th>
+          <th>Reject</th>
+        </tr>
+      </thead>
+      <tbody is="comp-table" v-for="item in items" :key="item.name" :item="item">
+
+      </tbody>
+      <!-- <tbody >
+        <template v-for="item in items" :key="item.name">
+          <tr>
+            <td :rowspan="item.sessions.length + 1">{{item.name}}</td>
+          </tr>
+          <tr v-for="(ses, index) in item.sessions">
+            <td>
+              <span v-for="stat in ses.statuses">{{stat.id}}</p>
+            </td>
+            <td :rowspan="item.sessions.length + 1" v-if="index === 0">{{item.util}}</td>
+            <td>{{ses.last}}</td>
+            <td>{{ses.rejects}}</td>
+          </tr>
+        </template>
+
+      </tbody> -->
+    </table>
+    <!-- <comp-table  v-for="item in items" :key="item.name" :item="item"></comp-table> -->
+  </div>
+  <template id="comp">
+    <tbody>
+      <tr>
+        <td :rowspan="item.sessions.length + 1">{{item.name}}</td>
+      </tr>
+      <tr v-for="(ses, index) in item.sessions">
+        <td>
+          <span v-for="stat in ses.statuses">{{stat.id}}</p>
+        </td>
+        <td :rowspan="item.sessions.length + 1" v-if="index === 0">{{item.util}}</td>
+        <td>{{ses.last}}</td>
+        <td>{{ses.rejects}}</td>
+      </tr>
+    </tbody>
+  </template>
+  <template id="head">
+
+  </template>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.22/dist/vue.js"></script>
+  <script>
+    Vue.component('comp-table', {
+      template: '#comp',
+      props: ['item'],
+      data() {
+        return {
+          title: 'world'
+        }
+      }
+    });
+    Vue.component('comp-head', {
+      template: '#head',
+      data() {
+        return {
+          title: 'world'
+        }
+      }
+    });
+    new Vue({
+      el: '#test',
+      data() {
+        return {
+          name: "table",
+          items: [{
+              name: 'client1',
+              sessions: [{
+                last: '14:00',
+                rejects: '4',
+                statuses: [{
+                    id: 'test1-client1',
+                    sender: 'g-client-1',
+                    targer: 'm-client-1',
+                    status: 'connect',
+                  },
+                  {
+                    id: 'test1-client1',
+                    sender: 'g-client-1',
+                    targer: 'm-client-1',
+                    status: 'connect',
+                  }
+                ]
+              }],
+              util: 333
+            },
+            {
+              name: 'client2',
+              sessions: [{
+                  last: '15:00',
+                  rejects: '45',
+                  statuses: [{
+                      id: 'test1-client2',
+                      sender: 'g-client-1',
+                      targer: 'm-client-1',
+                      status: 'connect',
+                    },
+                    {
+                      id: 'test1-client1',
+                      sender: 'g-client-1',
+                      targer: 'm-client-1',
+                      status: 'connect',
+                    }
+                  ]
+                },
+                {
+                  last: '12:00',
+                  rejects: '42',
+                  statuses: [{
+                      id: 'test1-client1',
+                      sender: 'g-client-1',
+                      targer: 'm-client-1',
+                      status: 'connect',
+                    },
+                    {
+                      id: 'test1-client1',
+                      sender: 'g-client-1',
+                      targer: 'm-client-1',
+                      status: 'connect',
+                    }
+                  ]
+                }
+              ],
+              util: 222
+            }
+          ]
+        }
+      },
+      computed: {
+        det(n) {
+          return n;
+        }
+      }
+    })
+
+    function fetchOne() {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => resolve(console.log('One')), 2000)
+      })
+    }
+
+    function fetchTwo() {
+      return Promise.resolve(console.log('Two'))
+    }
+
+
+    (async () => {
+      var status = function (response) {
+        if (response.status !== 200) {
+          return Promise.reject(new Error(response.statusText))
+        }
+        return Promise.resolve(response)
+      }
+      var json = function (response) {
+        return response.json()
+      }
+      await fetchOne()
+      await fetch('http://www.mocky.io/v2/5944e07213000038025b6f30', {
+          method: 'post',
+          body: 'test=1'
+        })
+        .then(status)
+        .then(json)
+        .then(function (data) {
+          console.log('data', data)
+        })
+        .catch(function (error) {
+          console.log('error', error)
+        })
+    })()
+  </script>
+</body>
+
+</html>
